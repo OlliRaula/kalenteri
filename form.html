@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <title>Luukun lomake – Littoisten Joulukalenteri</title>
+  <title>Luukun lomake – Littoisten Lumoava Joulukalenteri</title>
   <link rel="stylesheet" href="css/style.css?v=202511293">
   <link rel="stylesheet" href="css/form.css?v=1">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -15,7 +15,7 @@
 <body>
   <header>
     <h1 id="formTitle">🎄 Ehdota luukkua 🎄</h1>
-    <p id="formIntro">Täytä tiedot, valitse sijainti kartalta ja tarkista esikatselu. Lähetä lopuksi lomake, niin ylläpitäjä saa sen sähköpostiin.</p>
+    <p id="formIntro">Täytä tiedot, valitse sijainti kartalta ja tarkista esikatselu. Lähetä lopuksi lomake, niin kalenterin ylläpitäjä saa sen sähköpostiin.</p>
     <p><strong>Lähetäthän kuvan ja muut muutokset viimeistään kaksi päivää ennen luukun avautumista, jotta ne ehditään lisätä kalenteriin.</strong></p>
   </header>
 
@@ -29,7 +29,7 @@
       <section class="list-section form-section">
         <h2>Luukun tiedot</h2>
 
-        <label id="dayGroup">Mikä päivä? Voit ehdottaa useampaa vaihtoehtoa ja kirjoittaa huomioita.
+        <label id="dayGroup">Minä päivänä toivoisit luukun aukenevan? Voit ehdottaa useampaa vaihtoehtoa ja kirjoittaa huomioita.
           <input type="text" id="day" name="day" required maxlength="200">
         </label>
 
@@ -43,14 +43,14 @@
         <label>Viimeinen esilläolopäivä (valinnainen)
           <input type="number" id="endDay" name="endDay" min="1" max="24" step="1" inputmode="numeric">
         </label>
-        <p class="hint">Joulukuun päivä, johon asti luukku on esillä. Jos jätät tyhjäksi, luukku on esillä vain omana päivänään.</p>
+        <p class="hint">Merkitse tähän se joulukuun päivä, johon asti luukku on nähtävillä Littoisissa yleisölle. Jos jätät tämän kohdan tyhjäksi, ilmoitamme yleisölle, että luukku on katseltavissa/kierreltävissä vain luukun aukeamispäivänä. Nettiversiossa luukku on silti katseltavissa koko joulukuun ajan.</p>
 
         <div class="field">
           <span class="field-label" id="previewDescriptionLabel">Ennakkoteksti (valinnainen)</span>
           <div class="editor-toolbar"><button type="button" class="bold-btn" data-target="previewDescription" title="Lihavoi valittu teksti"><b>B</b> Lihavoi</button></div>
           <div id="previewDescription" class="editor editor-short" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="previewDescriptionLabel"></div>
         </div>
-        <p class="hint">Näkyy kalenterissa ennen luukun päivää, esimerkiksi kellonaika. Jos jätät tyhjäksi, luukku ei näy ennen päivää.</p>
+        <p class="hint">Tähän kirjoitettu teksti näkyy kalenterissa ennen luukun aukeamispäivää. Esimerkiksi, jos järjestät valitsemanasi päivänä tapahtuman, voit ilmoittaa sen kellonajan tai muita tietoja, jolloin yleisö voi ennakolta varautua. Jos jätät kohdan tyhjäksi, luukku ei näy ennen sen avautumispäivää.</p>
 
         <label>Kuva (valinnainen)
           <input type="file" id="photo" accept="image/*">
@@ -60,7 +60,7 @@
 
       <section class="map-section">
         <h2>Sijainti</h2>
-        <p class="hint">Napauta karttaa, niin merkki siirtyy kohtaan. Voit vielä vetää merkkiä. Zoomaa ja aseta merkki niin tarkasti kuin vain voit.</p>
+        <p class="hint">Napauta karttaa, niin merkki siirtyy valitsemaasi kohtaan. Voit siirtää merkkiä raahaamalla sitä. Zoomaa ja aseta merkki niin tarkasti kuin vain voit.</p>
         <div id="map"></div>
         <p id="locationStatus" class="hint">Sijaintia ei ole vielä valittu.</p>
       </section>
@@ -68,8 +68,8 @@
       <section class="list-section form-section">
         <h2>Esikatselu</h2>
         <div class="preview-toggle">
-          <label><input type="radio" name="previewMode" value="full" checked> Luukun päivänä</label>
-          <label><input type="radio" name="previewMode" value="before"> Ennen päivää</label>
+          <label><input type="radio" name="previewMode" value="full" checked> Luukun avautumispäivänä</label>
+          <label><input type="radio" name="previewMode" value="before"> Ennen avautumispäivää</label>
         </div>
         <div id="locationsList"></div>
       </section>
