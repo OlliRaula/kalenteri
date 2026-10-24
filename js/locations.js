@@ -14,5 +14,12 @@ window.LOCATIONS = [
     previewDescription: "Joulukalenteri avautuu <b>1. joulukuuta</b>. Tervetuloa mukaan! 🎄",
     lat: 60.4502,
     lng: 22.4112
+  },{
+    day: 4, // requested: "asdsad"
+    image: "4.jpg", // rename to <day>.jpg
+    description: "fdas,fmnasdl \n\nasf ksd\nqawfsdsdfjsl",
+    endDay: 22,
+    lat: 60.445697,
+    lng: 22.428503
   }
 ];
