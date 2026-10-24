@@ -56,6 +56,15 @@
     return location.day <= today.getDate() && today.getDate() <= endDay;
   }
 
+  // A day is over once December has passed its last day on display
+  function isExpired(location) {
+    if (isPreviewAllMode()) return false;
+    const today = new Date();
+    if (today.getMonth() !== 11) return false;
+    const endDay = Number.isInteger(location.endDay) ? location.endDay : location.day;
+    return today.getDate() > endDay;
+  }
+
   function isActiveOnlyMode() {
     return document.getElementById('activeOnly').checked;
   }
@@ -229,7 +238,8 @@
     const template = document.createElement('template');
     template.innerHTML = renderCard(location, {
       variant: 'highlighted',
-      showPreview: Boolean(shouldShowPreview(location))
+      showPreview: Boolean(shouldShowPreview(location)),
+      expired: isExpired(location)
     }).trim();
     const highlightedCard = template.content.firstElementChild;
 

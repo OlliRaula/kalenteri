@@ -26,6 +26,7 @@
 
   // options.variant: 'list' (default) or 'highlighted' (the card moved to the top)
   // options.showPreview: show previewDescription and the default image
+  // options.expired: the day is over, so the highlighted card says it can't be visited anymore
   // options.imageUrl: explicit photo URL (e.g. a data URL) used when not previewing
   function renderCard(location, options) {
     const opts = options || {};
@@ -44,8 +45,9 @@
     const date = `<div class="date">${dateText}</div>`;
     // Days people leave up after their date get a note after the description
     const showEnd = !showPreview && Number.isInteger(location.endDay) && location.endDay > day;
+    const showExpired = !showPreview && Boolean(opts.expired) && opts.variant === 'highlighted';
     const desc = `<div class="description">${descriptionHtml}</div>` +
-      (showEnd ? `<div class="end-note">Esillä ${location.endDay}. joulukuuta asti</div>` : '');
+      (showExpired ? '<div class="end-note">Tämä luukku ei ole enää vierailtavissa</div>' : showEnd ? `<div class="end-note">Esillä ${location.endDay}. joulukuuta asti</div>` : '');
 
     if (opts.variant === 'highlighted') {
       return `<div class="location-card highlighted-card" data-day="${day}">

@@ -80,3 +80,12 @@ describe('renderCard extras', () => {
     assert.equal(getImagePath(undefined), DEFAULT_IMAGE);
   });
 });
+
+describe('expired note', () => {
+  const loc = { day: 3, description: 'a' };
+  it('shows only on the highlighted card', () => {
+    assert.ok(renderCard(loc, { variant: 'highlighted', expired: true }).includes('ei ole enää vierailtavissa'));
+    assert.ok(!renderCard(loc, { variant: 'list', expired: true }).includes('vierailtavissa'));
+    assert.ok(!renderCard(loc, { variant: 'highlighted' }).includes('vierailtavissa'));
+  });
+});
