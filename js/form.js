@@ -119,10 +119,31 @@
     return !busy && !photoPending && state.lat !== null && textIsValid() && $('dayForm').checkValidity();
   }
 
+  // Human-readable list of what still blocks sending, shown next to the disabled button
+  function missingReasons() {
+    const reasons = [];
+    if (photoPending) reasons.push('Kuvaa käsitellään, odota hetki.');
+    if (!isEdit && !$('day').value.trim()) reasons.push('Kerro, mikä päivä (Luukun tiedot).');
+    const description = readText('description');
+    if (description === '') reasons.push('Kirjoita kuvaus.');
+    else if (description.length > MAX_DESCRIPTION) reasons.push(`Kuvaus on liian pitkä (enintään ${MAX_DESCRIPTION} merkkiä).`);
+    if (readText('previewDescription').length > MAX_PREVIEW) reasons.push(`Ennakkoteksti on liian pitkä (enintään ${MAX_PREVIEW} merkkiä).`);
+    if (!$('endDay').checkValidity()) reasons.push('Viimeinen esilläolopäivä ei kelpaa.');
+    if (state.lat === null) reasons.push('Valitse sijainti kartalta.');
+    if (!$('name').value.trim()) reasons.push('Täytä nimi.');
+    if (!$('email').value.trim()) reasons.push('Täytä sähköposti.');
+    else if (!$('email').checkValidity()) reasons.push('Sähköpostiosoite ei kelpaa.');
+    if (!$('phone').value.trim()) reasons.push('Täytä puhelinnumero.');
+    return reasons;
+  }
+
   function refresh() {
     setLocationStatus();
     renderPreview();
-    $('submitBtn').disabled = !canSubmit();
+    const enabled = canSubmit();
+    $('submitBtn').disabled = !enabled;
+    const reasons = enabled || busy ? [] : missingReasons();
+    $('submitHint').textContent = reasons.length ? `Lähetys ei ole vielä mahdollista: ${reasons.join(' ')}` : '';
   }
 
   // Resize in the browser so the base64 stays small enough for an email text field.
