@@ -213,7 +213,12 @@
   }
 
   function showFallback(snippet) {
-    $('fallbackText').value = snippet;
+    const contact = [
+      `Nimi: ${$('name').value.trim()}`,
+      `Sähköposti: ${$('email').value.trim()}`,
+      `Puhelin: ${$('phone').value.trim()}`
+    ].join('\n');
+    $('fallbackText').value = `${contact}\n\n${snippet}`;
     $('fallback').hidden = false;
   }
 
