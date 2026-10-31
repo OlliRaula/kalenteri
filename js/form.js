@@ -3,7 +3,7 @@
   'use strict';
 
   const { renderCard } = window.CalendarCard;
-  const { descriptionToEditorHtml, editorHtmlToDescription, buildSnippet } = window.FormLib;
+  const { takenDays, descriptionToEditorHtml, editorHtmlToDescription, buildSnippet } = window.FormLib;
 
   const ENDPOINT = 'https://api.web3forms.com/submit';
   const ACCESS_KEY = '212871f3-7df2-4fd7-b65d-3358700e818c';
@@ -33,8 +33,20 @@
     $('blocked').hidden = false;
   }
 
+  // Only shows what is already in the calendar; submissions not yet processed are not known here.
+  function showTakenDays() {
+    const days = takenDays(window.LOCATIONS);
+    if (!days.length) return;
+    $('takenDays').textContent = `Kalenterista on varattu jo luukut päiville: ${days.join(', ')}. ` +
+      'Huomaa, että lähetettyjä ehdotuksia ei ole välttämättä vielä käsitelty, joten myös muut päivät voivat olla jo varattuja.';
+    $('takenDays').hidden = false;
+  }
+
   function setupMode() {
-    if (!isEdit) return;
+    if (!isEdit) {
+      showTakenDays();
+      return;
+    }
     $('formTitle').textContent = `🎄 Muokkaa luukkua ${existing.day} 🎄`;
     $('formIntro').textContent = 'Muokkaa tietoja, tarkista esikatselu ja lähetä lomake.';
     $('dayGroup').hidden = true;

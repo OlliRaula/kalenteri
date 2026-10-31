@@ -5,7 +5,7 @@ const vm = require('node:vm');
 const LS = String.fromCharCode(0x2028);
 const PS = String.fromCharCode(0x2029);
 
-const { sanitizeDescription, flattenComment, roundCoord, buildSnippet, descriptionToEditorHtml, editorHtmlToDescription } = require('../js/form-lib.js');
+const { takenDays, sanitizeDescription, flattenComment, roundCoord, buildSnippet, descriptionToEditorHtml, editorHtmlToDescription } = require('../js/form-lib.js');
 
 // Evaluate a snippet as JS the way pasting it into the locations array would.
 function evalSnippet(snippet) {
@@ -144,5 +144,11 @@ describe('rich text box conversion', () => {
 
   it('maps strong to b and drops other markup and nbsp', () => {
     assert.equal(editorHtmlToDescription('<strong>x</strong>&nbsp;<span style="color:red">y</span>'), '<b>x</b> y');
+  });
+});
+
+describe('takenDays', () => {
+  it('returns sorted unique real days and skips placeholders', () => {
+    assert.deepEqual(takenDays([{ day: 5 }, { day: 0 }, { day: 2 }, { day: 5 }, {}]), [2, 5]);
   });
 });

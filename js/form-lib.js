@@ -98,5 +98,11 @@
     return `{\n${lines.join('\n')}\n},`;
   }
 
-  return { descriptionToEditorHtml, editorHtmlToDescription, sanitizeDescription, flattenComment, roundCoord, buildSnippet };
+  // Sorted, de-duplicated list of real day numbers (placeholder day 0 and invalid values are skipped).
+  function takenDays(locations) {
+    const days = locations.map(loc => loc.day).filter(day => Number.isInteger(day) && day > 0);
+    return [...new Set(days)].sort((a, b) => a - b);
+  }
+
+  return { takenDays, descriptionToEditorHtml, editorHtmlToDescription, sanitizeDescription, flattenComment, roundCoord, buildSnippet };
 });
