@@ -33,7 +33,7 @@
         <label id="dayGroup">Minä päivänä toivoisit luukun aukenevan? Voit ehdottaa useampaa vaihtoehtoa ja kirjoittaa huomioita.
           <input type="text" id="day" name="day" required maxlength="200">
         </label>
-        <p class="hint">Anna mielellään useampi vaihtoehto, esimerkiksi tärkeysjärjestyksessä.</p>
+        <p id="dayHint" class="hint">Anna mielellään useampi vaihtoehto, esimerkiksi tärkeysjärjestyksessä.</p>
         <p id="takenDays"class="hint" hidden></p>
 
         <div class="field">
@@ -78,6 +78,7 @@
       </section>
 
       <section class="list-section form-section">
+        <div id="contactGroup">
         <h2>Yhteystiedot</h2>
         <p class="hint">Näitä ei näytetä kalenterissa. Ne tulevat vain ylläpitäjälle.</p>
         <label>Nimi
@@ -89,6 +90,7 @@
         <label>Puhelin
           <input type="tel" id="phone" name="phone" required autocomplete="tel">
         </label>
+        </div>
 
         <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display: none;">
 
@@ -108,7 +110,7 @@
   <script src="js/locations.js?v=1"></script>
   <script src="js/card.js?v=1"></script>
   <script src="js/form-lib.js?v=2"></script>
-  <script src="js/form.js?v=7"></script>
+  <script src="js/form.js?v=9"></script>
 </body>
 
 </html>

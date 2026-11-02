@@ -50,6 +50,8 @@
     $('formTitle').textContent = `🎄 Muokkaa luukkua ${existing.day} 🎄`;
     $('formIntro').textContent = 'Muokkaa tietoja, tarkista esikatselu ja lähetä lomake.';
     $('dayGroup').hidden = true;
+    $('dayHint').hidden = true;
+    $('contactGroup').hidden = true;
     $('day').required = false;
     $('description').innerHTML = descriptionToEditorHtml(existing.description);
     $('previewDescription').innerHTML = descriptionToEditorHtml(existing.previewDescription);
@@ -142,10 +144,10 @@
     if (readText('previewDescription').length > MAX_PREVIEW) reasons.push(`Ennakkoteksti on liian pitkä (enintään ${MAX_PREVIEW} merkkiä).`);
     if (!$('endDay').checkValidity()) reasons.push('Viimeinen esilläolopäivä ei kelpaa.');
     if (state.lat === null) reasons.push('Valitse sijainti kartalta.');
-    if (!$('name').value.trim()) reasons.push('Täytä nimi.');
-    if (!$('email').value.trim()) reasons.push('Täytä sähköposti.');
-    else if (!$('email').checkValidity()) reasons.push('Sähköpostiosoite ei kelpaa.');
-    if (!$('phone').value.trim()) reasons.push('Täytä puhelinnumero.');
+    if (!isEdit && !$('name').value.trim()) reasons.push('Täytä nimi.');
+    if (!isEdit && !$('email').value.trim()) reasons.push('Täytä sähköposti.');
+    else if (!isEdit && !$('email').checkValidity()) reasons.push('Sähköpostiosoite ei kelpaa.');
+    if (!isEdit && !$('phone').value.trim()) reasons.push('Täytä puhelinnumero.');
     return reasons;
   }
 
@@ -225,12 +227,12 @@
   }
 
   function showFallback(snippet) {
-    const contact = [
+    const contact = isEdit ? '' : [
       `Nimi: ${$('name').value.trim()}`,
       `Sähköposti: ${$('email').value.trim()}`,
       `Puhelin: ${$('phone').value.trim()}`
     ].join('\n');
-    $('fallbackText').value = `${contact}\n\n${snippet}`;
+    $('fallbackText').value = isEdit ? snippet : `${contact}\n\n${snippet}`;
     $('fallback').hidden = false;
   }
 
@@ -265,6 +267,7 @@
     if (isEdit) {
       formData.set('day', String(existing.day));
       formData.set('key', editKey);
+      ['name', 'email', 'phone'].forEach(field => formData.set(field, ' '));
     }
     formData.set('snippet', snippet);
     if (state.imageDataUrl) formData.set('image', state.imageDataUrl);
