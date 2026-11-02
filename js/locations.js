@@ -7,7 +7,6 @@ window.LOCATIONS = [
   {
     day: 4,
     description: "Täytän myöhemmin",
-    previewDescription: "Täytän myöhemmin",
     endDay: 24,
     lat: 60.453662,
     lng: 22.418273
