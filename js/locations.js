@@ -14,7 +14,6 @@ window.LOCATIONS = [
   {
     day: 10,
     description: "Nallemökin joulu",
-    previewDescription: "Nallemökin joulu",
     lat: 60.449963,
     lng: 22.40371
   },
