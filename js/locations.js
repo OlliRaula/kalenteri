@@ -12,10 +12,22 @@ window.LOCATIONS = [
     lng: 22.418273
   },
   {
+    day: 6,
+    description: "Itsenäisyyspäivän luukku ja juhlistus Ison punasen pöydän luona",
+    lat: 60.450747,
+    lng: 22.403054
+  },
+  {
     day: 10,
     description: "Nallemökin joulu",
     lat: 60.449963,
     lng: 22.40371
+  },
+  {
+    day: 12,
+    description: "Joulukatu",
+    lat: 60.453662,
+    lng: 22.418273
   },
   {
     day: 13,
@@ -29,5 +41,11 @@ window.LOCATIONS = [
     previewDescription: "Saksofonitrio soittaa joulumusiikkia parvekkeella 15.12. klo 19",
     lat: 60.450167,
     lng: 22.404119
+  },
+  {
+    day: 24,
+    description: "Joulukirkko",
+    lat: 60.453662,
+    lng: 22.418273
   },
 ];
