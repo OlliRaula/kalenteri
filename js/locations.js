@@ -48,4 +48,31 @@ window.LOCATIONS = [
     lat: 60.453662,
     lng: 22.418273
   },
+  {
+    day: 18,
+    description: "Asetelma",
+    lat: 60.454629,
+    lng: 22.416976
+  },
+  {
+    day: 17,
+    description: "Palomäen päiväkoti toivottaa kaikille iloista joulua!",
+    endDay: 31,
+    lat: 60.45439,
+    lng: 22.411893
+  },
+  {
+    day: 5,
+    image: "5.jpg",
+    description: "Tapahtuma tehtaan A-rapun edessä lapsille.",
+    previewDescription: "Tule A-rapun eteen kello 18 ja katso ylöspäin! Tonttu ilmestyy parvekkeelle ja jotain tapahtuu. Tapahtuma tarkoitettu ennen kaikkea lapsille.",
+    lat: 60.449484,
+    lng: 22.404888
+  },
+  {
+    day: 14,
+    description: "Jouluinen teos Valkintiellä.",
+    lat: 60.450828,
+    lng: 22.408262
+  },
 ];
