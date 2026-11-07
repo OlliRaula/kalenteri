@@ -326,6 +326,10 @@
         document.execCommand('insertText', false, e.clipboardData.getData('text/plain'));
       });
     });
+    // Allow only digits in the end day field (type=number still accepts e, +, -, .)
+    $('endDay').addEventListener('beforeinput', e => {
+      if (e.data && /\D/.test(e.data)) e.preventDefault();
+    });
     $('dayForm').addEventListener('input', refresh);
     $('dayForm').addEventListener('change', refresh);
     $('photo').addEventListener('change', onPhotoChange);

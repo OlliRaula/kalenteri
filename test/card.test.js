@@ -15,18 +15,23 @@ function legacyImagePath(f) {
 }
 function legacyParts(location, showPreview) {
   const desc = showPreview && location.previewDescription ? location.previewDescription : (location.description || 'Tule ja ylläty!');
+  // endDay was added after the refactor: multi-day cards get an end note outside preview
+  const endNote = !showPreview && Number.isInteger(location.endDay) && location.endDay > location.day
+    ? `<div class="end-note">Esillä ${location.endDay}. joulukuuta asti</div>`
+    : '';
   return {
     html: desc.replace(/\n/g, '<br>'),
+    endNote,
     img: showPreview ? 'img/default.png' : legacyImagePath(location.image)
   };
 }
 function legacyList(location, showPreview) {
-  const { html, img } = legacyParts(location, showPreview);
-  return `<div class="location-card" data-day="${location.day}"><img src="${img}" alt="Luukku ${location.day}" class="card-image"><div class="day-badge">${location.day}</div><div class="date">${location.day}. joulukuuta 2026</div><div class="description">${html}</div></div>`;
+  const { html, img, endNote } = legacyParts(location, showPreview);
+  return `<div class="location-card" data-day="${location.day}"><img src="${img}" alt="Luukku ${location.day}" class="card-image"><div class="day-badge">${location.day}</div><div class="date">${location.day}. joulukuuta 2026</div><div class="description">${html}</div>${endNote}</div>`;
 }
 function legacyHighlighted(location, showPreview) {
-  const { html, img } = legacyParts(location, showPreview);
-  return `<div class="location-card highlighted-card" data-day="${location.day}"><img src="${img}" alt="Luukku ${location.day}" class="card-image"><div class="card-content"><div class="day-badge">${location.day}</div><div class="date">${location.day}. joulukuuta 2026</div><div class="description">${html}</div></div></div>`;
+  const { html, img, endNote } = legacyParts(location, showPreview);
+  return `<div class="location-card highlighted-card" data-day="${location.day}"><img src="${img}" alt="Luukku ${location.day}" class="card-image"><div class="card-content"><div class="day-badge">${location.day}</div><div class="date">${location.day}. joulukuuta 2026</div><div class="description">${html}</div>${endNote}</div></div>`;
 }
 
 describe('renderCard matches the legacy markup for every location', () => {
