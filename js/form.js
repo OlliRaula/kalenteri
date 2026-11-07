@@ -25,6 +25,8 @@
   let busy = false;
   let photoToken = 0;
   let photoPending = false;
+  const touched = new Set();
+  const FIELDS = ['day', 'description', 'endDay', 'previewDescription', 'location', 'name', 'email', 'phone'];
 
   const $ = id => document.getElementById(id);
 
@@ -83,6 +85,7 @@
     function place(latlng) {
       state.lat = latlng.lat;
       state.lng = latlng.lng;
+      touched.add('location');
       if (marker) {
         marker.setLatLng(latlng);
       } else {
@@ -133,22 +136,53 @@
     return !busy && !photoPending && state.lat !== null && textIsValid() && $('dayForm').checkValidity();
   }
 
-  // Human-readable list of what still blocks sending, shown next to the disabled button
-  function missingReasons() {
-    const reasons = [];
-    if (photoPending) reasons.push('Kuvaa käsitellään, odota hetki.');
-    if (!isEdit && !$('day').value.trim()) reasons.push('Kerro, mikä päivä (Luukun tiedot).');
+  function endDayMessage() {
+    const input = $('endDay');
+    if (input.checkValidity()) return null;
+    if (input.validity.badInput) return 'Kirjoita päivä pelkkänä numerona.';
+    const min = input.min || '1';
+    return `Päivän pitää olla ${min}–${input.max}.`;
+  }
+
+  function lengthMessage(label, length, max) {
+    return `${label} on liian pitkä: ${length} merkkiä, enintään ${max} (${length - max} liikaa).`;
+  }
+
+  // Everything that still blocks sending: { field, message }. field is null when no single field is to blame.
+  function validate() {
+    const problems = [];
+    const add = (field, message) => problems.push({ field, message });
+    if (photoPending) add(null, 'Kuvaa käsitellään, odota hetki.');
+    if (!isEdit && !$('day').value.trim()) add('day', 'Kerro, mikä päivä (Luukun tiedot).');
     const description = readText('description');
-    if (description === '') reasons.push('Kirjoita kuvaus.');
-    else if (description.length > MAX_DESCRIPTION) reasons.push(`Kuvaus on liian pitkä (enintään ${MAX_DESCRIPTION} merkkiä).`);
-    if (readText('previewDescription').length > MAX_PREVIEW) reasons.push(`Ennakkoteksti on liian pitkä (enintään ${MAX_PREVIEW} merkkiä).`);
-    if (!$('endDay').checkValidity()) reasons.push('Viimeinen esilläolopäivä ei kelpaa.');
-    if (state.lat === null) reasons.push('Valitse sijainti kartalta.');
-    if (!isEdit && !$('name').value.trim()) reasons.push('Täytä nimi.');
-    if (!isEdit && !$('email').value.trim()) reasons.push('Täytä sähköposti.');
-    else if (!isEdit && !$('email').checkValidity()) reasons.push('Sähköpostiosoite ei kelpaa.');
-    if (!isEdit && !$('phone').value.trim()) reasons.push('Täytä puhelinnumero.');
-    return reasons;
+    if (description === '') add('description', 'Kirjoita kuvaus.');
+    else if (description.length > MAX_DESCRIPTION) add('description', lengthMessage('Kuvaus', description.length, MAX_DESCRIPTION));
+    const preview = readText('previewDescription');
+    if (preview.length > MAX_PREVIEW) add('previewDescription', lengthMessage('Ennakkoteksti', preview.length, MAX_PREVIEW));
+    const endDayProblem = endDayMessage();
+    if (endDayProblem) add('endDay', endDayProblem);
+    if (state.lat === null) add('location', 'Valitse sijainti kartalta.');
+    if (!isEdit) {
+      if (!$('name').value.trim()) add('name', 'Täytä nimi.');
+      if (!$('email').value.trim()) add('email', 'Täytä sähköposti.');
+      else if (!$('email').checkValidity()) add('email', 'Sähköpostiosoite ei kelpaa.');
+      if (!$('phone').value.trim()) add('phone', 'Täytä puhelinnumero.');
+    }
+    return problems;
+  }
+
+  // Inline errors appear only for fields the user has already touched, so an empty form is not a wall of red.
+  function showFieldErrors(problems) {
+    const byField = new Map(problems.filter(p => p.field).map(p => [p.field, p.message]));
+    FIELDS.forEach(field => {
+      const message = touched.has(field) ? byField.get(field) : undefined;
+      const errorEl = $(`${field}Error`);
+      errorEl.textContent = message || '';
+      errorEl.hidden = !message;
+      const control = $(field === 'location' ? 'map' : field);
+      if (message) control.setAttribute('aria-invalid', 'true');
+      else control.removeAttribute('aria-invalid');
+    });
   }
 
   function refresh() {
@@ -156,8 +190,12 @@
     renderPreview();
     const enabled = canSubmit();
     $('submitBtn').disabled = !enabled;
-    const reasons = enabled || busy ? [] : missingReasons();
-    $('submitHint').textContent = reasons.length ? `Lähetys ei ole vielä mahdollista: ${reasons.join(' ')}` : '';
+    const problems = enabled ? [] : validate();
+    const summary = busy ? [] : problems;
+    showFieldErrors(problems);
+    $('submitHint').textContent = summary.length
+      ? `Lähetys ei ole vielä mahdollista: ${summary.map(p => p.message).join(' ')}`
+      : '';
   }
 
   // Resize in the browser so the base64 stays small enough for an email text field.
@@ -330,7 +368,11 @@
     $('endDay').addEventListener('beforeinput', e => {
       if (e.data && /\D/.test(e.data)) e.preventDefault();
     });
-    $('dayForm').addEventListener('input', refresh);
+    const markTouched = e => {
+      if (FIELDS.includes(e.target.id)) touched.add(e.target.id);
+    };
+    $('dayForm').addEventListener('input', e => { markTouched(e); refresh(); });
+    $('dayForm').addEventListener('focusout', e => { markTouched(e); refresh(); });
     $('dayForm').addEventListener('change', refresh);
     $('photo').addEventListener('change', onPhotoChange);
     $('dayForm').addEventListener('submit', onSubmit);

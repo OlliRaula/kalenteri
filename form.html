@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex">
   <title>Luukun lomake – Littoisten Lumoava Joulukalenteri</title>
   <link rel="stylesheet" href="css/style.css?v=202511293">
-  <link rel="stylesheet" href="css/form.css?v=1">
+  <link rel="stylesheet" href="css/form.css?v=2">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
@@ -33,6 +33,7 @@
         <label id="dayGroup">Minä päivänä toivoisit luukun aukenevan? Voit ehdottaa useampaa vaihtoehtoa ja kirjoittaa huomioita.
           <input type="text" id="day" name="day" required maxlength="200">
         </label>
+        <p id="dayError" class="field-error" role="alert" hidden></p>
         <p id="dayHint" class="hint">Anna mielellään useampi vaihtoehto, esimerkiksi tärkeysjärjestyksessä.</p>
         <p id="takenDays"class="hint" hidden></p>
 
@@ -41,11 +42,13 @@
           <div class="editor-toolbar"><button type="button" class="bold-btn" data-target="description" title="Lihavoi valittu teksti"><b>B</b> Lihavoi</button></div>
           <div id="description" class="editor" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="descriptionLabel"></div>
         </div>
+        <p id="descriptionError" class="field-error" role="alert" hidden></p>
         <p class="hint">Voit lihavoida tekstiä valitsemalla sen ja painamalla Lihavoi-painiketta.</p>
 
         <label>Viimeinen esilläolopäivä (valinnainen)
           <input type="number" id="endDay" name="endDay" min="1" max="31" step="1" inputmode="numeric">
         </label>
+        <p id="endDayError" class="field-error" role="alert" hidden></p>
         <p class="hint">Merkitse tähän se joulukuun päivä, johon asti luukku on nähtävillä Littoisissa yleisölle. Kirjoita kenttään vain yksi numero (2–31), esimerkiksi 15. Jos jätät tämän kohdan tyhjäksi, ilmoitamme yleisölle, että luukku on katseltavissa/kierreltävissä vain luukun aukeamispäivänä. Netissä luukku on kuitenkin katseltavissa luukun päivän jälkeen ilman aikarajaa.</p>
 
         <div class="field">
@@ -53,6 +56,7 @@
           <div class="editor-toolbar"><button type="button" class="bold-btn" data-target="previewDescription" title="Lihavoi valittu teksti"><b>B</b> Lihavoi</button></div>
           <div id="previewDescription" class="editor editor-short" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="previewDescriptionLabel"></div>
         </div>
+        <p id="previewDescriptionError" class="field-error" role="alert" hidden></p>
         <p class="hint">Tähän kirjoitettu teksti näkyy kalenterissa ennen luukun aukeamispäivää. Esimerkiksi, jos järjestät valitsemanasi päivänä tapahtuman, voit ilmoittaa sen kellonajan tai muita tietoja, jolloin yleisö voi ennakolta varautua. Jos jätät kohdan tyhjäksi, luukku ei näy ennen sen avautumispäivää.</p>
         <p class="hint"><b>Huom:</b> Jätä ennakkoteksti tyhjäksi, jos se ei ole vielä valmis. Muuten teksti tulee heti julkisesti näkyviin.</p>
         <p class="hint"><b>Huom:</b> Suosittelemme jättämään ennakkotekstin pois, ellei luukkuun liity ajankohtaista, aikaan sidottua asiaa (esimerkiksi tapahtuman kellonaika). Yllätykset ovat kivoja, joten annathan vieraille mahdollisuuden yllättyä luukkupäivänä.</p>
@@ -67,6 +71,7 @@
         <h2>Sijainti</h2>
         <p class="hint">Napauta karttaa, niin merkki siirtyy valitsemaasi kohtaan. Voit siirtää merkkiä raahaamalla sitä. Zoomaa ja aseta merkki niin tarkasti kuin vain voit.</p>
         <div id="map"></div>
+        <p id="locationError" class="field-error" role="alert" hidden></p>
         <p id="locationStatus" class="hint">Sijaintia ei ole vielä valittu.</p>
       </section>
 
@@ -86,12 +91,15 @@
         <label>Nimi
           <input type="text" id="name" name="name" required autocomplete="name">
         </label>
+        <p id="nameError" class="field-error" role="alert" hidden></p>
         <label>Sähköposti
           <input type="email" id="email" name="email" required autocomplete="email">
         </label>
+        <p id="emailError" class="field-error" role="alert" hidden></p>
         <label>Puhelin
           <input type="tel" id="phone" name="phone" required autocomplete="tel">
         </label>
+        <p id="phoneError" class="field-error" role="alert" hidden></p>
         </div>
 
         <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display: none;">
@@ -112,7 +120,7 @@
   <script src="js/locations.js?v=4"></script>
   <script src="js/card.js?v=1"></script>
   <script src="js/form-lib.js?v=2"></script>
-  <script src="js/form.js?v=10"></script>
+  <script src="js/form.js?v=11"></script>
 </body>
 
 </html>

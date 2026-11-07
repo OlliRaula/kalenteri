@@ -118,3 +118,14 @@
 .editor-short {
   min-height: 4rem;
 }
+
+.field-error {
+  margin: 0.25rem 0 0.75rem;
+  color: #c53030;
+  font-size: 0.9rem;
+}
+
+[aria-invalid="true"] {
+  border-color: #c53030 !important;
+  outline: 1px solid #c53030;
+}
