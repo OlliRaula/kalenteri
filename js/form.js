@@ -12,6 +12,7 @@
   const MAX_DESCRIPTION = 3000;
   const MAX_PREVIEW = 600;
   const CALENDAR_DAYS = 24;
+  const FREE_LIST_THRESHOLD = 8;
 
   const DEFAULT_CENTER = [60.4502, 22.4112];
 
@@ -41,8 +42,8 @@
     const days = takenDays(window.LOCATIONS);
     if (!days.length) return;
     const caveat = 'Huomaa, että lähetettyjä ehdotuksia ei ole välttämättä vielä käsitelty, joten myös muut päivät voivat olla jo varattuja.';
-    // Once more than half of the days are taken, the free days are the shorter and more useful list
-    $('takenDays').textContent = days.length > CALENDAR_DAYS / 2
+    // Once enough days are taken, the free days are the shorter and more useful list
+    $('takenDays').textContent = days.length >= FREE_LIST_THRESHOLD
       ? `Kalenterissa on vielä vapaana luukut päiville: ${freeDays(window.LOCATIONS, CALENDAR_DAYS).join(', ')}. ${caveat}`
       : `Kalenterista on varattu jo luukut päiville: ${days.join(', ')}. ${caveat}`;
     $('takenDays').hidden = false;
