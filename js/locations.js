@@ -75,4 +75,11 @@ window.LOCATIONS = [
     lat: 60.450828,
     lng: 22.408262
   },
+  {
+    day: 11,
+    description: "Päiväkodin ikkuna",
+    endDay: 18,
+    lat: 60.451066,
+    lng: 22.414767
+  },
 ];
