@@ -104,5 +104,15 @@
     return [...new Set(days)].sort((a, b) => a - b);
   }
 
-  return { takenDays, descriptionToEditorHtml, editorHtmlToDescription, sanitizeDescription, flattenComment, roundCoord, buildSnippet };
+  // Days 1..total that have no luukku yet.
+  function freeDays(locations, total = 24) {
+    const taken = new Set(takenDays(locations));
+    const free = [];
+    for (let day = 1; day <= total; day++) {
+      if (!taken.has(day)) free.push(day);
+    }
+    return free;
+  }
+
+  return { takenDays, freeDays, descriptionToEditorHtml, editorHtmlToDescription, sanitizeDescription, flattenComment, roundCoord, buildSnippet };
 });

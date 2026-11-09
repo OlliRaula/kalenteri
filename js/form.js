@@ -3,7 +3,7 @@
   'use strict';
 
   const { renderCard } = window.CalendarCard;
-  const { takenDays, descriptionToEditorHtml, editorHtmlToDescription, buildSnippet } = window.FormLib;
+  const { takenDays, freeDays, descriptionToEditorHtml, editorHtmlToDescription, buildSnippet } = window.FormLib;
 
   const ENDPOINT = 'https://api.web3forms.com/submit';
   const ACCESS_KEY = '212871f3-7df2-4fd7-b65d-3358700e818c';
@@ -11,6 +11,7 @@
   const MAX_IMAGE_CHARS = 200000;
   const MAX_DESCRIPTION = 3000;
   const MAX_PREVIEW = 600;
+  const CALENDAR_DAYS = 24;
 
   const DEFAULT_CENTER = [60.4502, 22.4112];
 
@@ -39,8 +40,11 @@
   function showTakenDays() {
     const days = takenDays(window.LOCATIONS);
     if (!days.length) return;
-    $('takenDays').textContent = `Kalenterista on varattu jo luukut päiville: ${days.join(', ')}. ` +
-      'Huomaa, että lähetettyjä ehdotuksia ei ole välttämättä vielä käsitelty, joten myös muut päivät voivat olla jo varattuja.';
+    const caveat = 'Huomaa, että lähetettyjä ehdotuksia ei ole välttämättä vielä käsitelty, joten myös muut päivät voivat olla jo varattuja.';
+    // Once more than half of the days are taken, the free days are the shorter and more useful list
+    $('takenDays').textContent = days.length > CALENDAR_DAYS / 2
+      ? `Kalenterissa on vielä vapaana luukut päiville: ${freeDays(window.LOCATIONS, CALENDAR_DAYS).join(', ')}. ${caveat}`
+      : `Kalenterista on varattu jo luukut päiville: ${days.join(', ')}. ${caveat}`;
     $('takenDays').hidden = false;
   }
 
