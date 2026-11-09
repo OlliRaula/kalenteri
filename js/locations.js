@@ -5,6 +5,12 @@
 //   - previewImage: Show this image before the date arrives (optional, uses same image if not set)
 window.LOCATIONS = [
   {
+    day: 1,
+    description: "Tervetuloa taas nauttimaan joulun odotuksesta meidän pihalle ! Portin toisella puolella löytyy pieni jouluvalo polku ☺️❤️✨",
+    lat: 60.449641,
+    lng: 22.403174
+  },
+  {
     day: 4,
     description: "Täytän myöhemmin",
     endDay: 24,
