@@ -11,6 +11,13 @@ window.LOCATIONS = [
     lng: 22.403174
   },
   {
+    day: 2,
+    description: "Törölän tonttu on taas saanut joulun laitettua ovellensa. Tule kurkkaamaan, miltä tontun ovi näyttää tänä jouluna.",
+    endDay: 25,
+    lat: 60.450787,
+    lng: 22.402164
+  },
+  {
     day: 4,
     description: "Täytän myöhemmin",
     endDay: 24,
