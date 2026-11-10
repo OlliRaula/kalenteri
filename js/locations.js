@@ -56,6 +56,14 @@ window.LOCATIONS = [
     lng: 22.404119
   },
   {
+    day: 20,
+    image: "20.jpg",
+    description: "🎅🐿️\nJoulupukille on käynyt hassusti: Solmijankujan ovela orava onnistui nappaamaan lahjapaketteja ja piilotti saaliinsa kujan reunoille puihin ja puskiin.\nLuukku ja sen yhteydessä oleva omatoiminen etsintätehtävä ovat koettavissa joulukuun loppuun saakka. Sopii piristykseksi kaikenikäisille, illemmalla kannattaa ottaa taskulamppu mukaan. Tervetuloa tapamaan jättipukki ja auttamaan häntä etsinnöissä! ✨",
+    endDay: 31,
+    lat: 60.458674,
+    lng: 22.419295
+  },
+  {
     day: 24,
     description: "Joulukirkko",
     lat: 60.453662,
