@@ -107,12 +107,6 @@
     return editorHtmlToDescription($(id).innerHTML);
   }
 
-  function textIsValid() {
-    const description = readText('description');
-    return description !== '' && description.length <= MAX_DESCRIPTION &&
-      readText('previewDescription').length <= MAX_PREVIEW;
-  }
-
   function currentLocation() {
     return {
       day: isEdit ? existing.day : '?',
@@ -137,8 +131,10 @@
     });
   }
 
+  // Single source of truth: sending is allowed exactly when validate() finds no problems.
+  // (form.checkValidity() is deliberately not used: it also counts hidden fields.)
   function canSubmit() {
-    return !busy && !photoPending && state.lat !== null && textIsValid() && $('dayForm').checkValidity();
+    return !busy && validate().length === 0;
   }
 
   function endDayMessage() {
@@ -193,9 +189,8 @@
   function refresh() {
     setLocationStatus();
     renderPreview();
-    const enabled = canSubmit();
-    $('submitBtn').disabled = !enabled;
-    const problems = enabled ? [] : validate();
+    const problems = validate();
+    $('submitBtn').disabled = busy || problems.length > 0;
     const summary = busy ? [] : problems;
     showFieldErrors(problems);
     $('submitHint').textContent = summary.length
