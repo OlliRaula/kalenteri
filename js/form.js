@@ -59,7 +59,7 @@
     $('dayGroup').hidden = true;
     $('dayHint').hidden = true;
     $('contactGroup').hidden = true;
-    $('day').required = false;
+    ['day', 'name', 'email', 'phone'].forEach(id => { $(id).required = false; });
     $('description').innerHTML = descriptionToEditorHtml(existing.description);
     $('previewDescription').innerHTML = descriptionToEditorHtml(existing.previewDescription);
     $('endDay').min = String(existing.day);
