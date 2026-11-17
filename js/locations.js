@@ -103,4 +103,11 @@ window.LOCATIONS = [
     lat: 60.451066,
     lng: 22.414767
   },
+  {
+    day: 7,
+    description: "mml, coming soon",
+    previewDescription: "Perhekerho",
+    lat: 60.447311,
+    lng: 22.435923
+  },
 ];
