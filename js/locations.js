@@ -105,8 +105,9 @@ window.LOCATIONS = [
   },
   {
     day: 7,
-    description: "mml, coming soon",
-    previewDescription: "Perhekerho",
+    image: "7.jpg",
+    description: "MLL:n perhekahvila: Tänään perhekahvilassa on luvassa mukavaa joulunodotusta ja tärkeää asiaa! ❤️\n\nMeillä vierailee puheterapeutti, jolta pääset kuulemaan ja kysymään puheen ja kielen kehitykseen liittyvistä asioista.\n\nJoulutunnelmaa tuovat myös herkullinen glögi ja piparit! ☕🍪\n\n📍 Paikka: Nunnan kerhotalo\n🕤 Aika: klo 9.30–11.30\n\nLämpimästi tervetuloa mukaan koko perheen voimin! ❤️🎅",
+    previewDescription: "MLL:n perhekahvila: Maanantaina 7.12. perhekahvilassa on luvassa mukavaa joulunodotusta ja tärkeää asiaa! ❤️\n\nMeillä vierailee puheterapeutti, jolta pääset kuulemaan ja kysymään puheen ja kielen kehitykseen liittyvistä asioista.\n\nJoulutunnelmaa tuovat myös herkullinen glögi ja piparit! ☕🍪\n\n📍 Paikka: Nunnan kerhotalo\n🕤 Aika: klo 9.30–11.30\n\nLämpimästi tervetuloa mukaan koko perheen voimin! ❤️🎅",
     lat: 60.447311,
     lng: 22.435923
   },
