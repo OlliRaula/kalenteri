@@ -19,7 +19,8 @@ window.LOCATIONS = [
   },
   {
     day: 4,
-    description: "Täytän myöhemmin",
+    image: "4.jpg",
+    description: "Tervetuloa kaikki kurkistamaan, missä nämä pienet joulutyypit oikein asustaa! ❤️\n\nHeidän oma pieni joulukotinsa löytyy portin pielestä. Siellä riittää joulun taikaa, iloa ja pieniä yllätyksiä. Tulkaahan kurkistamaan! 🐭🎅🏻🎄",
     endDay: 24,
     lat: 60.453662,
     lng: 22.418273
