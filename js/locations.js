@@ -111,4 +111,11 @@ window.LOCATIONS = [
     lat: 60.447311,
     lng: 22.435923
   },
+  {
+    day: 9,
+    description: "<b>Hyvänmielen runollisia toivotuksia.</b>\nKäy lukaisemassa hyvänmielen runollisia lausahduksia männystä roikkuvista korteista. Pimeällä kannattaa käyttää kännykän valoa tai ottaa taskulamppu mukaan.",
+    endDay: 24,
+    lat: 60.445626,
+    lng: 22.396239
+  },
 ];
